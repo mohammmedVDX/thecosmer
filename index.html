@@ -1,153 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>محرك بحث محتوى</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      /* Set background image */
-      background-image: url('your-image.jpg');
-      background-size: cover; /* Cover the entire container */
-      background-position: center; /* Center the background image */
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    #searchInput {
-      width: 100%;
-      font-size: 16px;
-      padding: 10px;
-      border: 1px solid #000000;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-    #searchResults {
-      margin-top: 20px;
-      border: 1px solid #000000;
-      border-radius: 5px;
-      padding: 10px;
-    }
-    #searchResults div {
-      margin-bottom: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editor with Video.js</title>
+    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div class="container">
-    <h1>محرك بحث محتوى</h1>
-    <input type="text" id="searchInput" placeholder="ابحث عن محتوى..." />
-    <div id="searchResults"></div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var searchInput = document.getElementById('searchInput');
-      var contentDatabase = [
-      {
-          topic: 'فضل التوبة',
-          content: 'قال رسول الله صلى الله عليه وسلم: "إن الله يفرح بتوبة عبده أكثر مما يفرح أحدكم بضالته إذا وجدها". (رواه البخاري)'
-        },
-        {
-          topic: 'حفظ اللسان',
-          content: 'قال رسول الله صلى الله عليه وسلم: "من كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت". (رواه البخاري)'
-        },
-        {
-          topic: 'فضل الذكر',
-          content: 'قال رسول الله صلى الله عليه وسلم: "لا يزال لسان المؤمن رطبًا من ذكر الله". (رواه الترمذي)'
-        },
-        {
-          topic: 'حفظ الأمانة',
-          content: 'قال رسول الله صلى الله عليه وسلم: "لا إيمان لمن لا أمانة له، ولا دين لمن لا عهد له". (رواه أحمد)'
-        },
-        {
-          topic: 'آداب الطعام',
-          content: 'قال رسول الله صلى الله عليه وسلم: "إذا أكل أحدكم فليذكر اسم الله تعالى، وإذا انتهى فليحمده". (رواه أبو داود)'
-        },
-        {
-          topic: 'فضل الصدقة',
-          content: 'قال رسول الله صلى الله عليه وسلم: "تصدّق ولو بشق تمرة، فإنها تقي من النار". (رواه البخاري)'
-        },
-        {
-          topic: 'الصبر على البلاء',
-          content: 'قال رسول الله صلى الله عليه وسلم: "عجبًا لأمر المؤمن، إن أمره كله خير، وليس ذلك لأحد إلا للمؤمن". (رواه مسلم)'
-        },
-        {
-          topic: 'فضل الصلاة',
-          content: 'قال رسول الله صلى الله عليه وسلم: "الصلاة نور". (رواه مسلم)'
-        },
-        {
-          topic: 'حسن الخلق',
-          content: 'قال رسول الله صلى الله عليه وسلم: "إن من أحبكم إليّ وأقربكم مني مجلسًا يوم القيامة أحاسنكم أخلاقًا". (رواه الترمذي)'
-        },
-        {
-          topic: 'الرحمة بالخلق',
-          content: 'قال رسول الله صلى الله عليه وسلم: "الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء". (رواه أبو داود)'
-        },
-        {
-          topic: 'فضل العلم',
-          content: 'قال رسول الله صلى الله عليه وسلم: "من سلك طريقًا يلتمس فيه علمًا، سهّل الله له به طريقًا إلى الجنة". (رواه مسلم)'
-        },
-        {
-          topic: 'الأمر بالمعروف والنهي عن المنكر',
-          content: 'قال رسول الله صلى الله عليه وسلم: "من رأى منكم منكرًا فليغيره بيده، فإن لم يستطع فبلسانه، فإن لم يستطع فبقلبه، وذلك أضعف الإيمان". (رواه مسلم)'
-        },
-        {
-          topic: 'فضل الجهاد',
-          content: 'قال رسول الله صلى الله عليه وسلم: "الجهاد في سبيل الله أفضل الأعمال". (رواه البخاري)'
-        },
-        {
-          topic: 'الحث على الصدق',
-          content: 'قال رسول الله صلى الله عليه وسلم: "عليكم بالصدق، فإن الصدق يهدي إلى البر، وإن البر يهدي إلى الجنة". (رواه مسلم)'
-        },
-        {
-          topic: 'فضل الإحسان',
-          content: 'قال رسول الله صلى الله عليه وسلم: "الإحسان أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك". (رواه مسلم)'
-        },
-        {
-          topic: 'الحث على الصبر',
-          content: 'قال رسول الله صلى الله عليه وسلم: "ما أصاب المؤمن من نصب ولا وصب ولا هم ولا حزن ولا أذى ولا غم، حتى الشوكة يشاكها، إلا كفّر الله بها من خطاياه". (رواه البخاري)'
-        },
-        {
-          topic: 'فضل الدعاء',
-          content: 'قال رسول الله صلى الله عليه وسلم: "الدعاء هو العبادة". (رواه الترمذي)'
-        },
-        {
-          topic: 'الحث على الإخلاص',
-          content: 'قال رسول الله صلى الله عليه وسلم: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى". (رواه البخاري)'
-        },
-        {
-          topic: 'فضل الإيثار والتواضع',
-          content: 'قال رسول الله صلى الله عليه وسلم: "من تواضع لله رفعه الله". (رواه مسلم)'
-        },
-    
-      ];
-
-      searchInput.addEventListener('input', function() {
-        var searchTerm = this.value.toLowerCase();
-        var matchingContent = contentDatabase.filter(function(item) {
-          return item.topic.toLowerCase().includes(searchTerm);
-        });
-
-        var resultsElement = document.getElementById('searchResults');
-        resultsElement.innerHTML = '';
-
-        matchingContent.forEach(function(item) {
-          var resultElement = document.createElement('div');
-          resultElement.textContent = item.content;
-          resultsElement.appendChild(resultElement);
-        });
-      });
-
-      searchInput.addEventListener('blur', function() {
-        var resultsElement = document.getElementById('searchResults');
-        resultsElement.innerHTML = '';
-      });
-    });
-  </script>
+    <header>
+        <h1>Online Video Editor</h1>
+    </header>
+    <main>
+        <section id="video-player">
+            <h2>Video Player</h2>
+            <video id="video-element" class="video-js vjs-default-skin" controls></video>
+            <div id="video-controls">
+                <button id="play-pause">Play/Pause</button>
+                <input type="range" id="seek-bar" value="0">
+                <button id="stop">Stop</button>
+                <button id="mute">Mute/Unmute</button>
+                <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+            </div>
+        </section>
+        <section id="video-editor">
+            <h2>Video Editor</h2>
+            <label for="video-upload">Upload Video:</label>
+            <input type="file" id="video-upload" accept="video/*">
+            <button id="trim-video">Trim Video</button>
+            <button id="cut-video">Cut Video</button>
+            <button id="change-speed">Change Speed</button>
+            <button id="save-video">Save Video</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Online Video Editor. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
